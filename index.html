@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uma surpresa para você 💜</title>
+<style>
+  :root {
+    --lavanda: #9b8ec4;
+    --lavanda-escuro: #6b5fa0;
+    --verde: #4a7c59;
+    --creme: #fdf9f3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: linear-gradient(160deg, #e8e3f5 0%, var(--creme) 45%, #e3efe7 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    color: #3a3550;
+  }
+  .card {
+    max-width: 560px;
+    width: 100%;
+    background: rgba(255,255,255,.85);
+    border-radius: 24px;
+    padding: 48px 32px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(107,95,160,.25);
+    animation: aparecer 1.2s ease-out;
+  }
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .emoji { font-size: 56px; }
+  h1 {
+    color: var(--lavanda-escuro);
+    font-size: 1.9em;
+    margin: 20px 0 8px;
+  }
+  h2 {
+    color: var(--verde);
+    font-weight: normal;
+    font-size: 1.2em;
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+  .divisor { color: var(--lavanda); letter-spacing: 8px; margin: 16px 0; }
+  p { font-size: 1.1em; line-height: 1.7; margin: 14px 0; }
+  .destaque {
+    background: linear-gradient(90deg, #ede9f8, #e7f2eb);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 24px 0;
+    font-size: 1.15em;
+  }
+  .destaque strong { color: var(--lavanda-escuro); }
+  .assinatura {
+    margin-top: 28px;
+    font-style: italic;
+    color: var(--lavanda-escuro);
+  }
+  .coracoes { font-size: 28px; margin-top: 12px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="emoji">🎁</div>
+    <h1>Parabéns, meu amor!</h1>
+    <h2>Você acaba de ganhar um presente especial…</h2>
+    <div class="divisor">❀ ❀ ❀</div>
+    <p>Prepare as malas (e o coração), porque você ganhou…</p>
+    <div class="destaque">
+      <strong>Um fim de semana com o mozão em um chalé em Monte Verde!</strong> 🏡⛰️
+    </div>
+    <p>Montanhas, lavandas, lareira, banheira com vista, café da manhã sem pressa
+       e o melhor de tudo: a gente, juntos, sem relógio e sem preocupação.</p>
+    <p>Você merece relaxar — e eu mereço a sua companhia. 😄</p>
+    <div class="divisor">❀ ❀ ❀</div>
+    <p class="assinatura">Com todo o meu amor,<br>do seu mozão 💜</p>
+    <div class="coracoes">💜💚💜</div>
+  </div>
+</body>
+</html>
