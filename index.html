@@ -175,10 +175,14 @@
   const pontosBox = carrossel.querySelector('.pontos');
   let atual = 0, timer;
 
-  // se a .webp não existir, tenta .jpg; se também não existir, remove do carrossel
+  // se a .webp não existir, tenta .jpg, depois .png; senão remove do carrossel
   fotos.forEach(img => img.addEventListener('error', () => {
     if (img.src.endsWith('.webp')) {
       img.src = img.src.replace('.webp', '.jpg');
+      return;
+    }
+    if (img.src.endsWith('.jpg')) {
+      img.src = img.src.replace('.jpg', '.png');
       return;
     }
     img.remove();
