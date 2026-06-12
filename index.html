@@ -144,12 +144,12 @@
     </div>
 
     <div class="carrossel" id="carrossel">
-      <img src="fotos/1.jpg" alt="Lavandas com vista para as montanhas">
-      <img src="fotos/2.jpg" alt="Pousada Diamantiqueira">
-      <img src="fotos/3.jpg" alt="Quarto do chalé">
-      <img src="fotos/4.jpg" alt="Varanda com vista">
-      <img src="fotos/5.jpg" alt="Vale verde de Monte Verde">
-      <img src="fotos/6.jpg" alt="Banheira com vista">
+      <img src="fotos/1.webp" alt="Lavandas com vista para as montanhas">
+      <img src="fotos/2.webp" alt="Pousada Diamantiqueira">
+      <img src="fotos/3.webp" alt="Quarto do chalé">
+      <img src="fotos/4.webp" alt="Varanda com vista">
+      <img src="fotos/5.webp" alt="Vale verde de Monte Verde">
+      <img src="fotos/6.webp" alt="Banheira com vista">
       <button class="ant" aria-label="Foto anterior">‹</button>
       <button class="prox" aria-label="Próxima foto">›</button>
       <div class="pontos"></div>
@@ -175,8 +175,12 @@
   const pontosBox = carrossel.querySelector('.pontos');
   let atual = 0, timer;
 
-  // remove fotos que não existirem na pasta
+  // se a .webp não existir, tenta .jpg; se também não existir, remove do carrossel
   fotos.forEach(img => img.addEventListener('error', () => {
+    if (img.src.endsWith('.webp')) {
+      img.src = img.src.replace('.webp', '.jpg');
+      return;
+    }
     img.remove();
     fotos = [...carrossel.querySelectorAll('img')];
     montarPontos();
