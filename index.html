@@ -27,7 +27,7 @@
     width: 100%;
     background: rgba(255,255,255,.85);
     border-radius: 24px;
-    padding: 48px 32px;
+    padding: 40px 28px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(107,95,160,.25);
     animation: aparecer 1.2s ease-out;
@@ -59,6 +59,71 @@
     font-size: 1.15em;
   }
   .destaque strong { color: var(--lavanda-escuro); }
+
+  /* Carrossel */
+  .carrossel {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 24px 0;
+    aspect-ratio: 4 / 3;
+    background: #ede9f8;
+    box-shadow: 0 8px 24px rgba(107,95,160,.2);
+  }
+  .carrossel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .8s ease;
+  }
+  .carrossel img.ativa { opacity: 1; }
+  .carrossel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,.75);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    color: var(--lavanda-escuro);
+    cursor: pointer;
+    z-index: 2;
+  }
+  .carrossel .ant { left: 10px; }
+  .carrossel .prox { right: 10px; }
+  .pontos {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    z-index: 2;
+  }
+  .pontos span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.6);
+    cursor: pointer;
+  }
+  .pontos span.ativa { background: #fff; }
+
+  .reserva {
+    background: #f3f0fa;
+    border-radius: 14px;
+    padding: 18px;
+    margin: 24px 0;
+    font-size: 1.05em;
+    line-height: 1.8;
+  }
+  .reserva strong { color: var(--verde); }
   .assinatura {
     margin-top: 28px;
     font-style: italic;
@@ -77,12 +142,71 @@
     <div class="destaque">
       <strong>Um fim de semana com o mozão em um chalé em Monte Verde!</strong> 🏡⛰️
     </div>
+
+    <div class="carrossel" id="carrossel">
+      <img src="fotos/1.jpg" alt="Lavandas com vista para as montanhas">
+      <img src="fotos/2.jpg" alt="Pousada Diamantiqueira">
+      <img src="fotos/3.jpg" alt="Quarto do chalé">
+      <img src="fotos/4.jpg" alt="Varanda com vista">
+      <img src="fotos/5.jpg" alt="Vale verde de Monte Verde">
+      <img src="fotos/6.jpg" alt="Banheira com vista">
+      <button class="ant" aria-label="Foto anterior">‹</button>
+      <button class="prox" aria-label="Próxima foto">›</button>
+      <div class="pontos"></div>
+    </div>
+
+    <div class="reserva">
+      🏡 <strong>Pousada Diamantiqueira</strong> — Monte Verde, MG<br>
+      📅 <strong>27 a 29 de junho de 2026</strong><br>
+      ✨ Só nós dois, sem relógio e sem preocupação
+    </div>
+
     <p>Montanhas, lavandas, lareira, banheira com vista, café da manhã sem pressa
-       e o melhor de tudo: a gente, juntos, sem relógio e sem preocupação.</p>
+       e o melhor de tudo: a gente, juntos.</p>
     <p>Você merece relaxar — e eu mereço a sua companhia. 😄</p>
     <div class="divisor">❀ ❀ ❀</div>
     <p class="assinatura">Com todo o meu amor,<br>do seu mozão 💜</p>
     <div class="coracoes">💜💚💜</div>
   </div>
+
+<script>
+  const carrossel = document.getElementById('carrossel');
+  let fotos = [...carrossel.querySelectorAll('img')];
+  const pontosBox = carrossel.querySelector('.pontos');
+  let atual = 0, timer;
+
+  // remove fotos que não existirem na pasta
+  fotos.forEach(img => img.addEventListener('error', () => {
+    img.remove();
+    fotos = [...carrossel.querySelectorAll('img')];
+    montarPontos();
+    mostrar(0);
+  }));
+
+  function montarPontos() {
+    pontosBox.innerHTML = '';
+    fotos.forEach((_, i) => {
+      const p = document.createElement('span');
+      p.addEventListener('click', () => { mostrar(i); reiniciar(); });
+      pontosBox.appendChild(p);
+    });
+  }
+  function mostrar(i) {
+    if (!fotos.length) return;
+    atual = (i + fotos.length) % fotos.length;
+    fotos.forEach((img, j) => img.classList.toggle('ativa', j === atual));
+    [...pontosBox.children].forEach((p, j) => p.classList.toggle('ativa', j === atual));
+  }
+  function reiniciar() {
+    clearInterval(timer);
+    timer = setInterval(() => mostrar(atual + 1), 4000);
+  }
+  carrossel.querySelector('.ant').addEventListener('click', () => { mostrar(atual - 1); reiniciar(); });
+  carrossel.querySelector('.prox').addEventListener('click', () => { mostrar(atual + 1); reiniciar(); });
+
+  montarPontos();
+  mostrar(0);
+  reiniciar();
+</script>
 </body>
 </html>
